@@ -2,18 +2,20 @@ axios.get('/api/pizzas')
   .then(({ data }) => {
     data.forEach(pizza => {
       let pizzaElem = document.createElement('li')
-          pizzaElem.innerHTML = `
-            <p>Pizza Name: ${pizza.name}</p>
-            <p>Sauce: ${pizza.sauce}</p>
-            <p>Toppings: ${pizza.topping_1}, ${pizza.topping_2}, ${pizza.extras}</p>
-            <p>Comments: ${pizza.comments}</p>
-            <p>Created by: ${pizza.user.username}
-            <hr>
-          `
-          document.getElementById('pizzas').prepend(pizzaElem)
+      pizzaElem.innerHTML = `
+        <p>Pizza Name: ${pizza.name}</p>
+        <p>Sauce: ${pizza.sauce}</p>
+        <p>Toppings: ${pizza.topping_1}, ${pizza.topping_2}, ${pizza.extras}</p>
+        <p>Comments: ${pizza.comments}</p>
+        <p>Created by: ${pizza.user.username}
+        <hr>
+      `
+      document.getElementById('pizzas').prepend(pizzaElem)
     })
   })
   .catch(err => console.log(err))
+
+
 document.getElementById('submitPizza').addEventListener('click', event => {
   event.preventDefault()
 
