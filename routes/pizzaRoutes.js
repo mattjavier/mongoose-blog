@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { Pizza, User } = require('../models')
+const passport = require('passport')
 
 router.get('/pizzas', (req, res) => {
   Pizza.find()
@@ -8,8 +9,16 @@ router.get('/pizzas', (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.post('/pizzas', (req, res) => {
-  Pizza.create(req.body)
+router.post('/pizzas', passport.authenticate('jwt'), (req, res) => {
+  Pizza.create({
+    name: req.body.name,
+    sauce: req.body.sauce,
+    topping_1: req.body.topping_1,
+    topping_2: req.body.topping_2,
+    extras: req.body.extras,
+    comments: req.body.comments,
+    user: req.user._id
+  })
     .then(pizza => {
       User.findByIdAndUpdate(pizza.user, { $push: { pizzas: pizza._id } })
         .then(() => res.json(pizza))

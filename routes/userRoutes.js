@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { User } = require('../models')
+const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 router.post('/users/register', (req, res) => {
@@ -18,6 +19,9 @@ router.post('/users/login', (req, res) => {
   })
 })
 
+router.get('/users/pizzas', passport.authenticate('jwt'), (res, req) => {
+  res.json(req.user)
+})
 
 router.get('/users', (req, res) => {
   User.find()
