@@ -19,7 +19,7 @@ router.post('/users/login', (req, res) => {
   })
 })
 
-router.get('/users/pizzas', passport.authenticate('jwt'), (res, req) => {
+router.get('/users/pizzas', passport.authenticate('jwt'), (req, res) => {
   res.json(req.user)
 })
 
